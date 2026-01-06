@@ -24,14 +24,14 @@ actor.actor_id not in (
 select *
 from category;
 
-/**comentario: listar los films de la categoria 'Action'*/
+/**comentario: Ejercicio 5 - listar los films de la categoria 'Action'*/
 select film.title
 from film
 inner join film_category on (film.film_id = film_category.film_id)      
 inner join category on (film_category.category_id = category.category_id)
 where category.name = 'Action';
 
-/¨comentario: listar los films de categorias 'Action', 'Music' and 'Sci-Fi' en los que 
+/*comentario: Ejercicio 6 - listar los films de categorias 'Action', 'Music' and 'Sci-Fi' en los que 
 haya participado algun actor que también participo en un film de categoria 'Documentary en lenguaje English'*/
 select distinct film.title
 from film  
@@ -50,3 +50,15 @@ actor.actor_id in (
     inner join language on (film.language_id = language.language_id)
     where category.name = 'Documentary' and language.name = 'English'
 );
+
+//comentario:Ejercicio 7: mostrar cuantos films de cada categoria estan almacenados en cada uno de los almacenes store
+
+select store.store_id, category.name, count(film.film_id) as total_films
+from store
+inner join inventory on (store.store_id = inventory.store_id)
+inner join film on (inventory.film_id = film.film_id)   
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category
+.category_id)
+group by store.store_id, category.name
+order by store.store_id, total_films desc;
