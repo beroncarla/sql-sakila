@@ -20,4 +20,13 @@ actor.actor_id not in (
     inner join film on (film.film_id = film_actor.actor_id)
     where (film.title = 'African Egg'));
 
+/**comentario: Ejercicio 4 - Listar las categorias*/
+select *
+from category;
 
+/**comentario: listar los films de la categoria 'Action'*/
+select film.title
+from film
+inner join film_category on (film.film_id = film_category.film_id)      
+inner join category on (film_category.category_id = category.category_id)
+where category.name = 'Action';
