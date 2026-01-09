@@ -62,3 +62,14 @@ inner join category on (film_category.category_id = category
 .category_id)
 group by store.store_id, category.name
 order by store.store_id, total_films desc;
+
+//comentario :Ejercicio 8: mostrar nombre y apellido y categoria de fiilm de aquellos actores que hayan participado en más de 6 films de la misma categoría.
+select actor.first_name, actor.last_name, category.name, count(film.film_id) as total_films
+from actor
+inner join film_actor on (actor.actor_id = film_actor.actor_id)
+inner join film on (film_actor.film_id = film.film_id)
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category.category_id)
+group by actor.actor_id, category.category_id
+having count(film.film_id) > 6
+order by total_films desc;
