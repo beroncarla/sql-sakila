@@ -143,3 +143,26 @@ actor.actor_id not in (
     where
     category.name = 'Comedy'
 );
+
+/*Mostrar el nombre y apellido de los actores que hayan participado en films de
+la categoría ‘Action’ y en films de la categoría ‘Comedy’.*/
+select distinct actor.first_name, actor.last_name
+from actor
+inner join film_actor on (actor.actor_id = film_actor.actor_id)
+inner join film on (film_actor.film_id = film.film_id)
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category
+.category_id)
+where category.name = 'Action' and
+actor.actor_id in (
+    select actor.actor_id
+    from actor
+    inner join film_actor on (actor.actor_id = film_actor.actor_id)
+    inner join film on (film_actor.film_id = film.film_id)
+    inner join film_category on (film.film_id = film_category.film_id)
+    inner join category on (film_category.category_id = category
+    .category_id)
+    where
+    category.name = 'Comedy'
+);
+
