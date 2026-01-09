@@ -84,3 +84,18 @@ inner join category on (film_category.category_id = category
 where (film.description like '%Car%' or film.description like '%Cars%')
 and film.description not like '%Teacher%';
 
+/* Mostrar un listado de títulos de films junto una columna denominada TIPO que muestre
+los siguientes valores:
+Para categorías ‘Action’, ‘Drama’, ‘Horror’, ‘Sci.Fi’ : ‘ADULTOS’
+Para categorías ‘Animation’, ‘Children’, ‘Comedy’, ‘Family’, ‘Games’: ‘FAMILIAR’
+Para el resto de las categorías: ’OTROS’ */
+select film.title,
+case 
+    when category.name in ('Action', 'Drama', 'Horror', 'Sci-Fi') then 'ADULTOS'
+    when category.name in ('Animation', 'Children', 'Comedy', 'Family', 'Games') then 'FAMILIAR'
+    else 'OTROS'
+end as TIPO 
+from film
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category.category_id);
+
