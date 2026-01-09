@@ -108,3 +108,17 @@ select actor.*, film.title
 from actor
 left join film_actor on (actor.actor_id = film_actor.actor_id)
 left join film on (film_actor.film_id = film.film_id);
+
+//*revisar
+/*Mostrar el nombre y apellido de los actores que hayan participado en films de
+todas las categorías existentes en la base de datos.*/
+select actor.first_name, actor.last_name
+from actor
+inner join film_actor on (actor.actor_id = film_actor.actor_id)
+inner join film on (film_actor.film_id = film.film_id)
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category
+.category_id)
+group by actor.actor_id
+having count(distinct category.category_id) = (select count(*) from category);
+
