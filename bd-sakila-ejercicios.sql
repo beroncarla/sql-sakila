@@ -99,3 +99,12 @@ from film
 inner join film_category on (film.film_id = film_category.film_id)
 inner join category on (film_category.category_id = category.category_id);
 
+
+/*Mostrar todos los datos de los actores junto con el titulo de cada film en la que
+participaron. Si un actor no participó en ningún film igualmente debe aparecer en el
+listado.
+*/
+select actor.*, film.title
+from actor
+left join film_actor on (actor.actor_id = film_actor.actor_id)
+left join film on (film_actor.film_id = film.film_id);
