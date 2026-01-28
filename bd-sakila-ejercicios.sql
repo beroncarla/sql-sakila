@@ -867,5 +867,24 @@ from film
 where film.description like '%Cars%'
 and film.description not like '%Teacher%';
 
+/*Mostrar el título de los films junto con un nuevo campo llamado TIPO que
+contenga los siguientes valores según la categoría del film:
+Para las categorías ‘Action’, ‘Drama’, ‘Horror’, ‘Sci-Fi’: ’ADULTOS’
+Para las categorías ‘Animation’, ‘Children’, ‘Comedy’, ‘Family’, ‘Games’:
+‘FAMILIAR’
+Para el resto de categorías: ‘OTROS’
+*/
+select film.title,
+case
+    when category.name in ('Action', 'Drama', 'Horror', 'Sci-Fi') then 'ADULTOS'
+    when category.name in ('Animation', '
+Children', 'Comedy', 'Family', 'Games') then 'FAMILIAR'
+    else 'OTROS'
+end as TIPO
+from film
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category
+.category_id);
+
 
 
