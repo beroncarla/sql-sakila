@@ -860,4 +860,12 @@ actor.actor_id not in (
     category.name = 'Comedy'
 );
 
+/* Mostrar un listado de títulos de films cuya descripción contenga las palabras
+‘Cars’ pero no contenga la palabra ‘Teacher’. */
+select film.title
+from film
+where film.description like '%Cars%'
+and film.description not like '%Teacher%';
+
+
 
