@@ -887,4 +887,25 @@ inner join category on (film_category.category_id = category
 .category_id);
 
 
-
+/*Mostrar el listado de actores junto con los títulos de los films en los que
+han participado. Incluir también a los actores que no hayan participado en
+ningún film.*/
+select actor.first_name, actor.last_name, film.title
+from actor
+left join film_actor on (actor.actor_id = film_actor.actor_id)
+left join film on (film_actor.film_id = film.film_id)
+order by actor.actor_id;
+/*Mostrar el nombre y apellido de los actores que hayan participado en films de
+todas las categorías existentes.*/
+select actor.first_name, actor.last_name
+from actor
+inner join film_actor on (actor.actor_id = film_actor.actor_id)
+inner join film on (film_actor.film_id = film.film_id)
+inner join film_category on (film.film_id = film_category.film_id)
+inner join category on (film_category.category_id = category
+.category_id)
+group by actor.actor_id
+having count(distinct category.category_id) = (
+    select count(*)
+    from category
+);
